@@ -21,7 +21,7 @@ Pilha* cria(void){
 
 No* retira(No* topo){
 	No* aux = topo;
-	lista = aux->proximo;
+	topo = aux->proximo;
 	free(aux);
 	return topo;
 }
@@ -30,9 +30,6 @@ int vazia(Pilha* pilha){
 	return(pilha->topo == NULL);
 }
 
-void push(Pilha* p, int v){
-	p->topo = insere(p->topo, v);
-}
 
 No* insere(No* lista, int num){
 	No* novo_no = (No *) malloc(sizeof(No));
@@ -40,6 +37,11 @@ No* insere(No* lista, int num){
 	novo_no->proximo = lista;
 	return novo_no;
 }
+
+void push(Pilha* p, int v){
+	p->topo = insere(p->topo, v);
+}
+
 
 int pop(Pilha* p){
 	int num;
@@ -51,6 +53,12 @@ int pop(Pilha* p){
 	p->topo = retira(p->topo);
 	return num;
 }
+
+void imprime(Pilha* pilha){
+	No* item;
+	for(item=pilha->topo; item!=NULL; item=item->proximo)
+		printf("\n Item : %d ", item->info);
+}
 	
 int main(int argc, char *argv[]) {
 	setlocale(LC_ALL, "");
@@ -59,7 +67,13 @@ int main(int argc, char *argv[]) {
 	push(p, 1);
 	push(p, 2);
 	push(p, 3);
-	
+	imprime(p);
+	pop(p);
+	printf("\n Após a remoção de um elemento: \n");
+	imprime(p);
+	pop(p);
+	printf("\n Após a remoção de um elemento: \n");
+	imprime(p);
 	
 	return 0;
 }
